@@ -1,0 +1,38 @@
+﻿Game genre: Platformer (side scrolling)
+
+Brief description: Jump on platforms and avoid hazards (SuperMario-ish). To overcome some hazards in an easier way you will need to capture some animals and "absorbe" their power. When an animal power is equipped, the player shows one of the animal's feature
+
+Possible animals:
+We can basically choose any animal we want I think,  but it would be better to have at most 4-5 different species in order not to overcomplicate the design
+
+Bird: Allows player to fly (has wings)
+Fish: Allows player to swim (has a fish fin)
+Cat: Allows player to jump higher (has cat's whiskers)
+Cheetah: Allows player to run faster (has a cheetah tail)
+Bat: can walk upside down (bat's black wings)
+Elephant: can move forward regardless of obstables, but his jump will be shorter (has a trunk)
+Phoenix: can walk into fire (skin on fire)
+
+Hazards:
+Same for hazards. Instead of adding too many of those it would probably be better to have 3-4 and mix them up. In this regards, I have been watching this series of videos about Super Mario World Method:
+https://gamedevelopment.tutsplus.com/articles/how-to-design-levels-with-the-super-mario-world-method--cms-25177
+
+Pits (player will fall of and die)
+Water
+Spikes
+Shifting rocks (will push the player to the closest pit)
+Falling rocks
+Poisonous snakes
+Lava
+
+Power ups:
+Lives (shamrock)
+Coins
+
+Has levels?
+I guess it does, and at any level the player's abilities are reset
+
+Win condition?
+Just get to the end of the level or beat some boss too?
+
+Is there any strategy in the placement of the animals?
