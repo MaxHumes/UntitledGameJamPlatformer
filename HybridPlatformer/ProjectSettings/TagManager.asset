@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PointPickup
   - LivePickup
+  - EnemyTag
   layers:
   - Default
   - TransparentFX
