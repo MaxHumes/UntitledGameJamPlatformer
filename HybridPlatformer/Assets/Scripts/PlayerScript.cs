@@ -12,9 +12,14 @@ public class PlayerScript : MonoBehaviour {
     private Rigidbody2D rb2d;
     private bool isJumping;
 
+
+    private bool birdActive, batActive;
+
     void Awake () {
         //initialize
         rb2d = GetComponent<Rigidbody2D>();
+        birdActive = false;  //can't fly
+        batActive = false;   //can't move upsid down
     }
 	
 	void Update () {
@@ -48,8 +53,8 @@ public class PlayerScript : MonoBehaviour {
             isJumping = false;
         }
 
-        if(this.transform.position.y <= 0 || this.transform.position.y >= 50){
-            //GameSceneManager.instance.PlayerLosesALife();
+        if(this.transform.position.y <= -7 || this.transform.position.y >= 50){
+            GameSceneManager.instance.PlayerLosesALife();
         }
     }
 
@@ -80,6 +85,18 @@ public class PlayerScript : MonoBehaviour {
             //Destroy the enemy
             Destroy(collision.gameObject);
         }
+
+    }
+
+    private void MoveAsHuman(){
+
+    }
+
+    private void FlyAsBird(){
+
+    }
+
+    private void MoveAsBat(){
 
     }
 }

@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameSceneManager : MonoBehaviour {
 
     public static GameSceneManager instance = null;
+
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject gameOverMenu;
+    //[SerializeField] private Text scoreText;
+    [SerializeField] private GameObject collectiblePrefab;
 
     private int gameScore = 0;
     private int playerLives = 1;
@@ -13,8 +20,6 @@ public class GameSceneManager : MonoBehaviour {
     private bool gameStarted = false;
     private bool gameOver = false;
 
-    private float shamrockCounter = 5;
-    private float shamCountDown;
 
 
     //Getters and Setters
@@ -41,6 +46,7 @@ public class GameSceneManager : MonoBehaviour {
     void Awake () {
 
 
+        gameOverMenu.SetActive(false);
         if (instance == null){
             instance = this;
         }
@@ -48,9 +54,8 @@ public class GameSceneManager : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        DontDestroyOnLoad(gameObject);
-
-        shamCountDown = shamrockCounter;
+        //DontDestroyOnLoad(gameObject);
+        Assert.IsNotNull(mainMenu);
 	}
 	
 	void Update () {
@@ -65,14 +70,22 @@ public class GameSceneManager : MonoBehaviour {
     public void PlayerLosesALife(){
 
         playerLives--;
+        Debug.Log("P "+ playerLives);
 
         if(playerLives == 0){
             gameOver = true;
+            gameStarted = false;
+            gameOverMenu.SetActive(true);
+            //scoreText.text = "Score: " + gameScore;
+            Time.timeScale = 0;
         }
-        else{
-            //
-        }
+    }
 
+    public void EnterGame(){
+        mainMenu.SetActive(false);
+        gameStarted = true;
+        Time.timeScale = 1;
+        //PlayerStartedGame();
     }
 
     public void ShamrockPickedUp(){
