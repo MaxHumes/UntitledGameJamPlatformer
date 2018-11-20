@@ -33,25 +33,34 @@ public class PlayerScript : MonoBehaviour {
     private void FixedUpdate()
     {
 
-        if (Input.GetKey(KeyCode.LeftArrow) && !isJumping){
-            if(Mathf.Abs(rb2d.velocity.x) < maxVelocity){
-                rb2d.AddForce(Vector2.left * playerVelocity);
-            }
-        }else if(Input.GetKey(KeyCode.RightArrow) && ! isJumping){
-            if (Mathf.Abs(rb2d.velocity.x) < maxVelocity)
-            {
-                rb2d.AddForce(Vector2.right * playerVelocity);
-            }
-        }
-        if(Input.GetKeyDown(KeyCode.G)){
+        if (!birdActive && !batActive)
+            MoveAsHuman();
+        else if (batActive)
+            MoveAsLizard();
+        else
+            FlyAsBird();
+
+        if(Input.GetKeyDown(KeyCode.B) && !birdActive){
+
+            batActive = !batActive;
             //if bat is equipped, invert gravity
             InvertGravity();
         }
+        else if(Input.GetKeyDown(KeyCode.F)){
 
-        if(isJumping){
-            rb2d.AddForce(Vector2.up * jumpForce);
-            isJumping = false;
+            if (birdActive){ //gravity was set to 0, need to reassign it
+
+                GetComponent<Rigidbody2D>().gravityScale = 1;
+                batActive = false;
+            }
+
+            birdActive = !birdActive;
         }
+
+        //if(isJumping){
+        //    rb2d.AddForce(Vector2.up * jumpForce);
+        //    isJumping = false;
+        //}
 
         if(this.transform.position.y <= -7 || this.transform.position.y >= 50){
             GameSceneManager.instance.PlayerLosesALife();
@@ -90,13 +99,65 @@ public class PlayerScript : MonoBehaviour {
 
     private void MoveAsHuman(){
 
+        //walk on platforms, jump
+
+        if (Input.GetKey(KeyCode.LeftArrow) && !isJumping)
+        {
+            if (Mathf.Abs(rb2d.velocity.x) < maxVelocity)
+            {
+                rb2d.AddForce(Vector2.left * playerVelocity);
+            }
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && !isJumping)
+        {
+            if (Mathf.Abs(rb2d.velocity.x) < maxVelocity)
+            {
+                rb2d.AddForce(Vector2.right * playerVelocity);
+            }
+        }
+
+        if (isJumping)
+        {
+            rb2d.AddForce(Vector2.up * jumpForce);
+            isJumping = false;
+        }
     }
 
     private void FlyAsBird(){
 
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+            rb2d.AddForce(Vector2.left * playerVelocity / 2);
+        else if (Input.GetKey(KeyCode.RightArrow))
+            rb2d.AddForce(Vector2.right * playerVelocity / 2);
+        else if (Input.GetKey(KeyCode.UpArrow))
+            rb2d.AddForce(Vector2.up * playerVelocity / 2);
+        else if (Input.GetKey(KeyCode.DownArrow))
+            rb2d.AddForce(Vector2.down * playerVelocity / 2);
+
     }
 
-    private void MoveAsBat(){
+    private void MoveAsLizard(){
 
+        if (Input.GetKey(KeyCode.LeftArrow) && !isJumping)
+        {
+            if (Mathf.Abs(rb2d.velocity.x) < maxVelocity)
+            {
+                rb2d.AddForce(Vector2.left * playerVelocity);
+            }
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) && !isJumping)
+        {
+            if (Mathf.Abs(rb2d.velocity.x) < maxVelocity)
+            {
+                rb2d.AddForce(Vector2.right * playerVelocity);
+            }
+        }
+
+        if(isJumping){
+            rb2d.AddForce(Vector2.down * jumpForce);
+            isJumping = false;
+        }
     }
 }
