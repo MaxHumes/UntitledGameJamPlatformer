@@ -8,6 +8,8 @@ TagManager:
   - LivePickup
   - EnemyTag
   - Death
+  - Goal
+  - Wings
   layers:
   - Default
   - TransparentFX

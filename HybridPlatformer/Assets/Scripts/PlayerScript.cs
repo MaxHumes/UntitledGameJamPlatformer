@@ -14,12 +14,14 @@ public class PlayerScript : MonoBehaviour {
 
 
     private bool birdActive, batActive;
+    private bool canSpreadWings;
 
     void Awake () {
         //initialize
         rb2d = GetComponent<Rigidbody2D>();
         birdActive = false;  //can't fly
         batActive = false;   //can't move upsid down
+        canSpreadWings = false;
     }
 	
 	void Update () {
@@ -46,7 +48,7 @@ public class PlayerScript : MonoBehaviour {
             //if bat is equipped, invert gravity
             InvertGravity();
         }
-        else if(Input.GetKeyDown(KeyCode.F)){
+        else if(Input.GetKeyDown(KeyCode.F) && canSpreadWings){
 
             if (birdActive){ //gravity was set to 0, need to reassign it
 
@@ -92,6 +94,15 @@ public class PlayerScript : MonoBehaviour {
             //player loses a life
             GameSceneManager.instance.PlayerLosesALife();
             //Destroy the enemy
+            Destroy(collision.gameObject);
+        }
+        if(collision.gameObject.CompareTag("Goal")){
+            //Level cleared
+            GameSceneManager.instance.PlayerClearsLevel();
+        }
+        if(collision.gameObject.CompareTag("Wings")){
+            //Can equip wings and fly
+            canSpreadWings = true;
             Destroy(collision.gameObject);
         }
 

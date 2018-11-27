@@ -11,11 +11,13 @@ public class GameSceneManager : MonoBehaviour {
 
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject gameOverMenu;
-    //[SerializeField] private Text scoreText;
+    [SerializeField] private GameObject clearLevelMenu;
+    [SerializeField] private Text scoreText;
+    [SerializeField] private Text playerLivesText;
     [SerializeField] private GameObject collectiblePrefab;
 
     private int gameScore = 0;
-    private int playerLives = 1;
+    private int playerLives = 3;
     private bool playerActive = false;
     private bool gameStarted = false;
     private bool gameOver = false;
@@ -47,6 +49,7 @@ public class GameSceneManager : MonoBehaviour {
 
 
         gameOverMenu.SetActive(false);
+        clearLevelMenu.SetActive(false);
         if (instance == null){
             instance = this;
         }
@@ -69,8 +72,7 @@ public class GameSceneManager : MonoBehaviour {
 
     public void PlayerLosesALife(){
 
-        playerLives--;
-        Debug.Log("P "+ playerLives);
+        playerLives-= 1;
 
         if(playerLives == 0){
             gameOver = true;
@@ -81,20 +83,31 @@ public class GameSceneManager : MonoBehaviour {
         }
     }
 
+    public void PlayerClearsLevel(){
+
+        Time.timeScale = 0;
+        clearLevelMenu.SetActive(true);
+    }
+
     public void EnterGame(){
         mainMenu.SetActive(false);
         gameStarted = true;
         Time.timeScale = 1;
         //PlayerStartedGame();
+
+        scoreText.text = "Score: " + gameScore.ToString();
+        playerLivesText.text = "1P: " + playerLives.ToString();
     }
 
     public void ShamrockPickedUp(){
 
         gameScore += 100;
+        scoreText.text = "Score: " + gameScore.ToString();
     }
 
     public void BeerPickedUp(){
 
         playerLives += 1;
+        playerLivesText.text = "1P: " + playerLives.ToString();
     }
 }
