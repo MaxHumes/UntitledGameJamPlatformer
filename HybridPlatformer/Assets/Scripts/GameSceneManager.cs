@@ -72,15 +72,12 @@ public class GameSceneManager : MonoBehaviour {
 
     public void PlayerLosesALife(){
 
-        playerLives-= 1;
 
-        if(playerLives == 0){
             gameOver = true;
             gameStarted = false;
             gameOverMenu.SetActive(true);
             //scoreText.text = "Score: " + gameScore;
             Time.timeScale = 0;
-        }
     }
 
     public void PlayerClearsLevel(){
@@ -103,11 +100,5 @@ public class GameSceneManager : MonoBehaviour {
 
         gameScore += 100;
         scoreText.text = "Score: " + gameScore.ToString();
-    }
-
-    public void BeerPickedUp(){
-
-        playerLives += 1;
-        playerLivesText.text = "1P: " + playerLives.ToString();
     }
 }

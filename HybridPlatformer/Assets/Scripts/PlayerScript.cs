@@ -16,6 +16,11 @@ public class PlayerScript : MonoBehaviour {
     private bool birdActive, batActive;
     private bool canSpreadWings;
 
+    [SerializeField]
+    private Sprite wingedSprite;
+    [SerializeField]
+    private Sprite normalSprite;
+
     void Awake () {
         //initialize
         rb2d = GetComponent<Rigidbody2D>();
@@ -52,6 +57,8 @@ public class PlayerScript : MonoBehaviour {
 
             if (birdActive){ //gravity was set to 0, need to reassign it
 
+                //change sprite back
+                GetComponent<SpriteRenderer>().sprite = normalSprite;
                 GetComponent<Rigidbody2D>().gravityScale = 1;
                 batActive = false;
             }
@@ -76,13 +83,7 @@ public class PlayerScript : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("LivePickup")){
-            //
-            Debug.Log("1UP!");
-            GameSceneManager.instance.BeerPickedUp();
-            //destroy pickup
-            Destroy(collision.gameObject);
-        }
+
         if(collision.gameObject.CompareTag("PointPickup")){
 
             Debug.Log("+10");
@@ -137,6 +138,7 @@ public class PlayerScript : MonoBehaviour {
     private void FlyAsBird(){
 
         GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponent<SpriteRenderer>().sprite = wingedSprite;
 
         if (Input.GetKey(KeyCode.LeftArrow))
             rb2d.AddForce(Vector2.left * playerVelocity / 2);
