@@ -13,11 +13,10 @@ public class GameSceneManager : MonoBehaviour {
     [SerializeField] private GameObject gameOverMenu;
     [SerializeField] private GameObject clearLevelMenu;
     [SerializeField] private Text scoreText;
-    [SerializeField] private Text playerLivesText;
     [SerializeField] private GameObject collectiblePrefab;
 
     private int gameScore = 0;
-    private int playerLives = 3;
+    //private int playerLives = 3;
     private bool playerActive = false;
     private bool gameStarted = false;
     private bool gameOver = false;
@@ -93,7 +92,7 @@ public class GameSceneManager : MonoBehaviour {
         //PlayerStartedGame();
 
         scoreText.text = "Score: " + gameScore.ToString();
-        playerLivesText.text = "1P: " + playerLives.ToString();
+        //playerLivesText.text = "1P: " + playerLives.ToString();
     }
 
     public void ShamrockPickedUp(){

@@ -66,11 +66,7 @@ public class PlayerScript : MonoBehaviour {
             birdActive = !birdActive;
         }
 
-        //if(isJumping){
-        //    rb2d.AddForce(Vector2.up * jumpForce);
-        //    isJumping = false;
-        //}
-
+       
         if(this.transform.position.y <= -7 || this.transform.position.y >= 50){
             GameSceneManager.instance.PlayerLosesALife();
         }
@@ -86,7 +82,6 @@ public class PlayerScript : MonoBehaviour {
 
         if(collision.gameObject.CompareTag("PointPickup")){
 
-            Debug.Log("+10");
             GameSceneManager.instance.ShamrockPickedUp();
             //destroy pickup
             Destroy(collision.gameObject);
